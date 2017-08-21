@@ -75,14 +75,14 @@ def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost = False):
     costs = []
 
     for i in range(num_iterations):
-    # Cost and gradient calculation (≈ 1-4 lines of code)
+    # Cost and gradient calculation
         grads, cost = propagate(w, b, X, Y)
 
     # Retrieve derivatives from grads
     dw = grads["dw"]
     db = grads["db"]
 
-    # update rule (≈ 2 lines of code)
+    # update rule
     w = w - learning_rate * dw
     b = b - learning_rate * db
 
@@ -118,14 +118,10 @@ def predict(w, b, X):
     w = w.reshape(X.shape[0], 1)
 
     # Compute vector "A" predicting the probabilities of a cat being present in the picture
-    ### START CODE HERE ### (≈ 1 line of code)
     A = sigmoid(np.dot(w.T, X) + b)
-    ### END CODE HERE ###
 
-    # Convert probabilities A[0,i] to actual predictions p[0,i]
-    ### START CODE HERE ### (≈ 4 lines of code)
+    # Convert probabilities A to actual predictions
     Y_prediction = np.vectorize(float)(A > 0.5)
-    ### END CODE HERE ###
 
     assert(Y_prediction.shape == (1, m))
 
@@ -158,11 +154,9 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     w = parameters["w"]
     b = parameters["b"]
 
-    # Predict test/train set examples (≈ 2 lines of code)
+    # Predict test/train set examples 
     Y_prediction_test = predict(w, b, X_test)
     Y_prediction_train = predict(w, b, X_train)
-
-    ### END CODE HERE ###
 
     # Print train/test Errors
     print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
